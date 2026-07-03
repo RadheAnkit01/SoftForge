@@ -81,7 +81,7 @@ export function ContactForm({
 } = useForm<ContactFormValues>({
   resolver: zodResolver(contactSchema),
   defaultValues: {
-    countryCode: "+91",
+    countryCode: isIndia? "+91": "+1",
     customCountryCode: "",
     service: "",
     budget: "",
