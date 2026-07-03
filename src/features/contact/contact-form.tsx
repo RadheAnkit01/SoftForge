@@ -5,10 +5,11 @@ import { Send } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm ,useWatch} from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
 
 const contactSchema = z
   .object({
@@ -41,23 +42,53 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 const inputClass =
   "focus-ring min-h-11 w-full rounded-md border bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground";
 
-export function ContactForm() {
+type ContactFormProps = {
+  isIndia: boolean;
+};
+const indianBudgets: string[] = [
+  "₹14,999 - ₹24,999",
+  "₹24,999 - ₹34,999",
+  "₹34,999 - ₹49,999",
+  "₹50,000+",
+  "Need guidance",
+];
+
+const internationalBudgets: string[] = [
+  "$399 - $699",
+  "$700 - $999",
+  "$1,000 - $2,000",
+  "$2,000+",
+  "Need guidance",
+];
+
+export function ContactForm({
+  isIndia,
+}: ContactFormProps) {
   const router = useRouter();
   const [status, setStatus] = useState<string | null>(null);
+  const budgets = isIndia
+    ? indianBudgets
+    : internationalBudgets;
+  
   const {
+  control,
   register,
-  watch,
   handleSubmit,
   formState: { errors, isSubmitting },
 } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      countryCode: "+91",
-      customCountryCode: "",
-      service: "",
-      budget: "",
-    },
-  });
+  resolver: zodResolver(contactSchema),
+  defaultValues: {
+    countryCode: "+91",
+    customCountryCode: "",
+    service: "",
+    budget: "",
+  },
+});
+
+const selectedCountryCode = useWatch({
+  control,
+  name: "countryCode",
+});
 
   async function onSubmit(values: ContactFormValues) {
     try {
@@ -116,7 +147,7 @@ export function ContactForm() {
               <option value="other">🌍 Other</option>
             </select>
 
-            {watch("countryCode") === "other" && (
+            {selectedCountryCode === "other" && (
               <input
                 className="w-24 rounded-md border bg-background px-3 py-2 text-sm"
                 placeholder="+123"
@@ -154,10 +185,11 @@ export function ContactForm() {
         <Field label="Budget range" error={errors.budget?.message}>
           <select className={inputClass} {...register("budget")}>
             <option value="">Select budget</option>
-            <option>₹14,999 - ₹24,999</option>
-            <option>₹24,999 - ₹34,999</option>
-            <option>₹34,000+</option>
-            <option>Need guidance</option>
+            {budgets.map((budget) => (
+              <option key={budget} value={budget}>
+                {budget}
+              </option>
+            ))}
           </select>
         </Field>
       </div>

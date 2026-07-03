@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/sections/section-heading";
 import { siteConfig } from "@/lib/site";
 import { createMetadata } from "@/lib/seo";
+import { getVisitorCountry } from "@/lib/geo";
 
 export const metadata: Metadata = createMetadata({
   title: "Contact",
@@ -12,7 +13,10 @@ export const metadata: Metadata = createMetadata({
   path: "/contact",
 });
 
-export default function ContactPage() {
+
+export default async function ContactPage() {
+  const country = await getVisitorCountry();
+  const isIndia = country === "IN";
   return (
     <section className="section-shell">
       <div className="container-soft">
@@ -44,7 +48,7 @@ export default function ContactPage() {
               </a>
             </Card>
           </div>
-          <ContactForm />
+          <ContactForm isIndia={isIndia} />
         </div>
       </div>
     </section>

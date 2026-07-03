@@ -121,59 +121,107 @@ export const technologies = [
   { name: "Maintenance", icon: Wrench },
 ];
 
-export const pricingPlans = [
-  {
-    name: "Basic Plan",
-    price: "From ₹14,999",
-    description:
-      "Perfect for individuals and small businesses that need a professional online presence.",
-    features: [
-      "Up to 5 responsive pages",
-      "Modern UI design",
-      "Contact form & WhatsApp integration",
-      "Basic SEO setup",
-      "Performance optimization",
-      "Deployment assistance",
-    ],
-    cta: "Book Free Consultation",
-    
-  },
-  {
-    name: "Premium Plan",
-    price: "From ₹24,999",
-    description:
-      "Ideal for startups and growing businesses that need a powerful, conversion-focused website.",
-    features: [
-      "Up to 15 custom pages",
-      "Custom UI/UX design",
-      "CMS integration",
-      "Advanced animations & interactions",
-      "Analytics & conversion tracking",
-      "Advanced SEO optimization",
-      "Security & accessibility improvements",
-      "Launch support & documentation",
-    ],
-    cta: "Discuss Premium Build",
-    featured: true,
-  },
-  {
-    name: "Customized Plan",
-    price: "Let's Talk",
-    description:
-      "Tailored solutions for businesses with unique requirements, complex workflows, or custom software needs.",
-    features: [
-      "Unlimited pages & scalable architecture",
-      "Custom web application development",
-      "Admin dashboard & user authentication",
-      "API & third-party integrations",
-      "Payment gateway integration",
-      "Custom CMS or backend",
-      "Priority support & maintenance options",
-      "Dedicated consultation and project planning",
-    ],
-    cta: "Request Custom Quote",
-  },
-];
+export const pricingPlans = {
+  india: [
+    {
+      name: "Basic Plan",
+      price: "From ₹14,999",
+      description:
+        "Perfect for individuals and small businesses that need a professional online presence.",
+      features: [
+        "Up to 5 responsive pages",
+        "Modern UI design",
+        "Contact form & WhatsApp integration",
+        "Basic SEO setup",
+        "Performance optimization",
+        "Deployment assistance",
+      ],
+      cta: "Book Free Consultation",
+    },
+    {
+      name: "Premium Plan",
+      price: "From ₹24,999",
+      description:
+        "Ideal for startups and growing businesses that need a powerful, conversion-focused website.",
+      features: [
+        "Up to 15 custom pages",
+        "Custom UI/UX design",
+        "CMS integration",
+        "Advanced animations & interactions",
+        "Analytics & conversion tracking",
+        "Advanced SEO optimization",
+        "Security & accessibility improvements",
+        "Launch support & documentation",
+      ],
+      cta: "Discuss Premium Build",
+      featured: true,
+    },
+    {
+      name: "Customized Plan",
+      price: "Let's Talk",
+      description:
+        "Tailored solutions for businesses with unique requirements.",
+      features: [
+        "Unlimited pages",
+        "Custom web application",
+        "Admin dashboard",
+        "API integrations",
+        "Payment gateway",
+      ],
+      cta: "Request Custom Quote",
+    },
+  ],
+
+  international: [
+    {
+      name: "Basic Plan",
+      price: "From $399",
+      description:
+        "Perfect for individuals and small businesses that need a professional online presence.",
+      features: [
+        "Up to 5 responsive pages",
+        "Modern UI design",
+        "Contact form & WhatsApp integration",
+        "Basic SEO setup",
+        "Performance optimization",
+        "Deployment assistance",
+      ],
+      cta: "Book Free Consultation",
+    },
+    {
+      name: "Premium Plan",
+      price: "From $699",
+      description:
+        "Ideal for startups and growing businesses that need a powerful, conversion-focused website.",
+      features: [
+        "Up to 15 custom pages",
+        "Custom UI/UX design",
+        "CMS integration",
+        "Advanced animations & interactions",
+        "Analytics & conversion tracking",
+        "Advanced SEO optimization",
+        "Security & accessibility improvements",
+        "Launch support & documentation",
+      ],
+      cta: "Discuss Premium Build",
+      featured: true,
+    },
+    {
+      name: "Customized Plan",
+      price: "Let's Talk",
+      description:
+        "Tailored solutions for businesses with unique requirements.",
+      features: [
+        "Unlimited pages",
+        "Custom web application",
+        "Admin dashboard",
+        "API integrations",
+        "Payment gateway",
+      ],
+      cta: "Request Custom Quote",
+    },
+  ],
+};
 
 export const testimonials = [
   {

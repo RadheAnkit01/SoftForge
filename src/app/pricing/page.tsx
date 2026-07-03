@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/sections/section-heading";
 import { pricingPlans } from "@/lib/site";
 import { createMetadata } from "@/lib/seo";
+import { getVisitorCountry } from "@/lib/geo";
 
 export const metadata: Metadata = createMetadata({
   title: "Pricing",
@@ -13,7 +14,13 @@ export const metadata: Metadata = createMetadata({
   path: "/pricing",
 });
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const country =
+    await getVisitorCountry();
+  const plans =
+    country === "IN"
+      ? pricingPlans.india
+      : pricingPlans.international;
   return (
     <section className="section-shell">
       <div className="container-soft">
@@ -23,7 +30,7 @@ export default function PricingPage() {
           description="Fixed enterprise pricing is intentionally avoided. Larger products, SaaS platforms, and mobile apps should start with a consultation and custom quotation."
         />
         <div className="mt-12 grid gap-4 lg:grid-cols-2">
-          {pricingPlans.map((plan) => (
+          {plans.map((plan) => (
             <Card className={plan.featured ? "border-foreground" : undefined} key={plan.name}>
               <h2 className="text-xl font-semibold">{plan.name}</h2>
               <p className="mt-3 leading-7 text-muted-foreground">{plan.description}</p>

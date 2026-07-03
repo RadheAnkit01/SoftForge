@@ -8,6 +8,7 @@ import { ForgeLottie } from "@/components/sections/forge-lottie";
 import { SectionHeading } from "@/components/sections/section-heading";
 import { TestimonialSlider } from "@/components/sections/testimonial-slider";
 import { contentRepository } from "@/features/cms/content-repository";
+import { getVisitorCountry } from "@/lib/geo";
 import {
   primaryCta,
   sampleLogos,
@@ -16,13 +17,20 @@ import {
 } from "@/lib/site";
 
 export default async function HomePage() {
-  const [services, processSteps, technologies, pricingPlans, faqs] = await Promise.all([
+  const country = await getVisitorCountry();
+  const [services, processSteps, technologies, pricingData, faqs] =
+  await Promise.all([
     contentRepository.getServices(),
     contentRepository.getProcessSteps(),
     contentRepository.getTechnologies(),
     contentRepository.getPricingPlans(),
     contentRepository.getFaqs(),
   ]);
+
+const pricingPlans =
+  country === "IN"
+    ? pricingData.india
+    : pricingData.international;
   const CtaIcon = primaryCta.icon;
 
   return (
@@ -200,8 +208,8 @@ export default async function HomePage() {
         <div className="container-soft">
           <SectionHeading
             eyebrow="Testimonials"
-            title="What our clients say."
-            description="Real feedback from the forward-thinking teams and businesses we collaborate with everyday."
+            title="Built to earn trust before the first call."
+            description="Professionally written placeholders are included for launch and can be replaced from the CMS as real client feedback arrives."
           />
           <div className="mt-12">
             <TestimonialSlider />
