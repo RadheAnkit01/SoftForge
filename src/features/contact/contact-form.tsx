@@ -9,6 +9,8 @@ import { useForm ,useWatch} from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Turnstile } from "@marsidev/react-turnstile";
+
 
 
 const contactSchema = z
@@ -66,6 +68,7 @@ export function ContactForm({
 }: ContactFormProps) {
   const router = useRouter();
   const [status, setStatus] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
   const budgets = isIndia
     ? indianBudgets
     : internationalBudgets;
@@ -91,6 +94,11 @@ const selectedCountryCode = useWatch({
 });
 
   async function onSubmit(values: ContactFormValues) {
+    if (!turnstileToken) {
+      setStatus("Please complete the verification.");
+      return;
+    }
+
     try {
       setStatus("Sending inquiry...");
       const response = await fetch("/api/contact", {
@@ -98,7 +106,10 @@ const selectedCountryCode = useWatch({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          ...values,
+          turnstileToken,
+        }),
       });
       if (!response.ok) {
         throw new Error("Failed");
@@ -202,6 +213,15 @@ const selectedCountryCode = useWatch({
             {...register("message")}
           />
         </Field>
+      </div>
+      
+      <div className="mt-6">
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+          onSuccess={(token) => setTurnstileToken(token)}
+          onExpire={() => setTurnstileToken("")}
+          onError={() => setTurnstileToken("")}
+        />
       </div>
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
