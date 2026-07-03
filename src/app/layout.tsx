@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@/features/analytics/google-analytics";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -43,6 +45,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SiteFooter />
           <WhatsAppButton />
           <GoogleAnalytics />
+          <Analytics />
+          <SpeedInsights />
           <script
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
             type="application/ld+json"
