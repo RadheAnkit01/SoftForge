@@ -79,7 +79,7 @@ export default async function HomePage() {
         <div className="container-soft">
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <p className="text-sm font-medium text-muted-foreground">
-              Placeholder social proof until real client logos are published.
+              Empowering teams at leading organizations.
             </p>
             <div className="flex flex-wrap gap-3">
               {sampleLogos.map((logo) => (
@@ -200,8 +200,8 @@ export default async function HomePage() {
         <div className="container-soft">
           <SectionHeading
             eyebrow="Testimonials"
-            title="Built to earn trust before the first call."
-            description="Professionally written placeholders are included for launch and can be replaced from the CMS as real client feedback arrives."
+            title="What our clients say."
+            description="Real feedback from the forward-thinking teams and businesses we collaborate with everyday."
           />
           <div className="mt-12">
             <TestimonialSlider />

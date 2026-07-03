@@ -19,7 +19,7 @@ export default function PricingPage() {
       <div className="container-soft">
         <SectionHeading
           eyebrow="Pricing"
-          title="Two clear starting points for Version 1."
+          title="Transparent pricing plans for projects of any size."
           description="Fixed enterprise pricing is intentionally avoided. Larger products, SaaS platforms, and mobile apps should start with a consultation and custom quotation."
         />
         <div className="mt-12 grid gap-4 lg:grid-cols-2">

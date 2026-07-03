@@ -10,14 +10,31 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Please enter your name."),
-  email: z.string().email("Please enter a valid email."),
-  company: z.string().optional(),
-  service: z.string().min(1, "Choose a service."),
-  budget: z.string().min(1, "Choose a budget range."),
-  message: z.string().min(20, "Tell us a little more about the project."),
-});
+const contactSchema = z
+  .object({
+    name: z.string().min(2, "Please enter your name."),
+    email: z.string().email("Please enter a valid email."),
+    company: z.string().optional(),
+    countryCode: z.string().min(1, "Select a country code."),
+    customCountryCode: z.string().optional(),
+    phone: z.string().regex(/^\d{7,15}$/, "Please enter a valid phone number."),
+    service: z.string().min(1, "Choose a service."),
+    budget: z.string().min(1, "Choose a budget range."),
+    message: z
+      .string()
+      .min(20, "Tell us a little more about the project.")
+      .max(2000, "Project details cannot exceed 2000 characters."),
+
+  })
+  .refine(
+    (data) =>
+      data.countryCode !== "other" ||
+      !!data.customCountryCode?.trim(),
+    {
+      path: ["customCountryCode"],
+      message: "Please enter your country code.",
+    }
+  );
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
@@ -28,22 +45,39 @@ export function ContactForm() {
   const router = useRouter();
   const [status, setStatus] = useState<string | null>(null);
   const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<ContactFormValues>({
+  register,
+  watch,
+  handleSubmit,
+  formState: { errors, isSubmitting },
+} = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
+      countryCode: "+91",
+      customCountryCode: "",
       service: "",
       budget: "",
     },
   });
 
   async function onSubmit(values: ContactFormValues) {
-    setStatus("Preparing your consultation request...");
-    sessionStorage.setItem("softforge:lastInquiry", JSON.stringify(values));
-    await new Promise((resolve) => setTimeout(resolve, 450));
-    router.push("/thank-you");
+    try {
+      setStatus("Sending inquiry...");
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      if (!response.ok) {
+        throw new Error("Failed");
+      }
+      setStatus("Inquiry sent successfully.");
+      router.push("/thank-you");
+    } catch (error) {
+      console.error(error);
+      setStatus("Something went wrong. Please try again.");
+    }
   }
 
   return (
@@ -53,14 +87,52 @@ export function ContactForm() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="grid gap-4 sm:grid-cols-2">
+
         <Field label="Name" error={errors.name?.message}>
           <input autoComplete="name" className={inputClass} {...register("name")} />
         </Field>
         <Field label="Email" error={errors.email?.message}>
           <input autoComplete="email" className={inputClass} type="email" {...register("email")} />
         </Field>
+
       </div>
 
+      <div className="mt-4">
+        <Field
+          label="Phone Number"
+          error={errors.countryCode?.message || errors.phone?.message}
+        >
+          <div className="flex gap-2">
+            <select
+              className="w-36 rounded-md border bg-background px-3 py-2 text-sm"
+              {...register("countryCode")}
+            >
+              <option value="+91">🇮🇳 +91</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+971">🇦🇪 +971</option>
+
+              <option value="other">🌍 Other</option>
+            </select>
+
+            {watch("countryCode") === "other" && (
+              <input
+                className="w-24 rounded-md border bg-background px-3 py-2 text-sm"
+                placeholder="+123"
+                {...register("customCountryCode")}
+              />
+            )}
+
+            <input
+              type="tel"
+              className={cn(inputClass, "flex-1")}
+              placeholder="9876543210"
+              {...register("phone")}
+            />
+          </div>
+        </Field>
+      </div>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <Field label="Company" error={errors.company?.message}>
           <input autoComplete="organization" className={inputClass} {...register("company")} />
@@ -73,6 +145,7 @@ export function ContactForm() {
             <option>UI/UX Design</option>
             <option>Backend or API Development</option>
             <option>AI Integration</option>
+            <option>Need Combo Plan</option>
           </select>
         </Field>
       </div>
@@ -81,9 +154,9 @@ export function ContactForm() {
         <Field label="Budget range" error={errors.budget?.message}>
           <select className={inputClass} {...register("budget")}>
             <option value="">Select budget</option>
-            <option>$799 - $1,999</option>
-            <option>$2,000 - $5,000</option>
-            <option>$5,000+</option>
+            <option>₹14,999 - ₹24,999</option>
+            <option>₹24,999 - ₹34,999</option>
+            <option>₹34,000+</option>
             <option>Need guidance</option>
           </select>
         </Field>

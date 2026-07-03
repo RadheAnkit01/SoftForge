@@ -21,7 +21,7 @@ export const siteConfig = {
   tagline: "Forging Digital Experiences That Drive Growth.",
   description:
     "SoftForge builds premium websites, web apps, and Flutter mobile apps for startups, small businesses, and growing companies worldwide.",
-  email: "hello@softforge.site",
+  email: "contact@softforge.site",
   whatsapp: "+917903707134",
   whatsappUrl:
     "https://wa.me/917903707134?text=Hi%20SoftForge%2C%20I%27d%20like%20to%20book%20a%20free%20consultation.",
@@ -124,34 +124,54 @@ export const technologies = [
 export const pricingPlans = [
   {
     name: "Basic Plan",
-    price: "From ₹7,999",
+    price: "From ₹14,999",
     description:
-      "A polished foundation for businesses that need a fast, credible online presence.",
+      "Perfect for individuals and small businesses that need a professional online presence.",
     features: [
-      "Up to 5 core pages",
-      "Responsive website build",
-      "Contact form and WhatsApp CTA",
+      "Up to 5 responsive pages",
+      "Modern UI design",
+      "Contact form & WhatsApp integration",
       "Basic SEO setup",
       "Performance optimization",
-      "Deployment guidance",
+      "Deployment assistance",
     ],
     cta: "Book Free Consultation",
+    
   },
   {
     name: "Premium Plan",
-    price: "From ₹14,999",
+    price: "From ₹24,999",
     description:
-      "A stronger product-grade build for startups, SaaS teams, and growing businesses.",
+      "Ideal for startups and growing businesses that need a powerful, conversion-focused website.",
     features: [
-      "Custom website or web app",
-      "CMS-ready content architecture",
-      "Advanced animations and interactions",
-      "Analytics and conversion tracking",
-      "Security and accessibility pass",
-      "Launch support and documentation",
+      "Up to 15 custom pages",
+      "Custom UI/UX design",
+      "CMS integration",
+      "Advanced animations & interactions",
+      "Analytics & conversion tracking",
+      "Advanced SEO optimization",
+      "Security & accessibility improvements",
+      "Launch support & documentation",
     ],
     cta: "Discuss Premium Build",
     featured: true,
+  },
+  {
+    name: "Customized Plan",
+    price: "Let's Talk",
+    description:
+      "Tailored solutions for businesses with unique requirements, complex workflows, or custom software needs.",
+    features: [
+      "Unlimited pages & scalable architecture",
+      "Custom web application development",
+      "Admin dashboard & user authentication",
+      "API & third-party integrations",
+      "Payment gateway integration",
+      "Custom CMS or backend",
+      "Priority support & maintenance options",
+      "Dedicated consultation and project planning",
+    ],
+    cta: "Request Custom Quote",
   },
 ];
 
@@ -159,8 +179,8 @@ export const testimonials = [
   {
     quote:
       "SoftForge translated our rough startup idea into a clean, fast website that felt credible from day one.",
-    name: "Maya Chen",
-    role: "Founder, Orbit Labs",
+    name: "J K Bishwas",
+    role: "Owner, Bishwas Security Services",
   },
   {
     quote:
@@ -176,7 +196,7 @@ export const testimonials = [
   },
 ];
 
-export const sampleLogos = ["NOVA", "HAVEN", "ORBIT", "KIN", "ATLAS"];
+export const sampleLogos = ["BSS", "HAVEN", "ORBIT", "KIN", "ATLAS"];
 
 export const faqs = [
   {
