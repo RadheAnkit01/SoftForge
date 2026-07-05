@@ -6,7 +6,8 @@ import { SectionHeading } from "@/components/sections/section-heading";
 import { siteConfig } from "@/lib/site";
 import { createMetadata } from "@/lib/seo";
 import { getVisitorCountry } from "@/lib/geo";
-
+import { StructuredData } from "@/components/seo/structured-data";
+import { webpageSchema } from "@/lib/schema";
 export const metadata: Metadata = createMetadata({
   title: "Contact",
   description: "Book a free SoftForge consultation for website development, mobile app development, UI/UX design, backend systems, or AI integration.",
@@ -17,7 +18,14 @@ export const metadata: Metadata = createMetadata({
 export default async function ContactPage() {
   const country = await getVisitorCountry();
   const isIndia = country === "IN";
+  const pageSchema = webpageSchema(
+  "Contact SoftForge",
+  "Book a free consultation with SoftForge for website development, Flutter mobile apps, backend systems, UI/UX design, and AI solutions.",
+  "/contact"
+);
   return (
+    <>
+    <StructuredData data={pageSchema} />
     <section className="section-shell">
       <div className="container-soft">
         <SectionHeading
@@ -52,5 +60,6 @@ export default async function ContactPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }

@@ -9,7 +9,13 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { createMetadata } from "@/lib/seo";
-import { schemaOrg } from "@/lib/site";
+// import { schemaOrg } from "@/lib/site";
+// import {
+//   organizationSchema,
+//   websiteSchema,
+// } from "@/lib/schema";
+import { StructuredData } from "@/components/seo/structured-data";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -47,10 +53,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <GoogleAnalytics />
           <Analytics />
           <SpeedInsights />
-          <script
+          {/* <script
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
             type="application/ld+json"
+          /> */}
+          {/* <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(organizationSchema()),
+            }}
           />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(websiteSchema()),
+            }}
+          /> */}
+        <StructuredData data={organizationSchema()} />
+        <StructuredData data={websiteSchema()} />   
         </ThemeProvider>
       </body>
     </html>

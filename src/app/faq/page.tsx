@@ -3,6 +3,8 @@ import { Accordion } from "@/components/ui/accordion";
 import { SectionHeading } from "@/components/sections/section-heading";
 import { faqs } from "@/lib/site";
 import { createMetadata } from "@/lib/seo";
+import { StructuredData } from "@/components/seo/structured-data";
+import { faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = createMetadata({
   title: "FAQ",
@@ -11,7 +13,10 @@ export const metadata: Metadata = createMetadata({
 });
 
 export default function FaqPage() {
+  const faqData = faqSchema(faqs);
   return (
+    <>
+    <StructuredData data={faqData} />
     <section className="section-shell">
       <div className="container-soft">
         <SectionHeading
@@ -24,5 +29,6 @@ export default function FaqPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }

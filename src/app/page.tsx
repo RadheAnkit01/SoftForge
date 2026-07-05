@@ -15,6 +15,8 @@ import {
   siteConfig,
   trustStats,
 } from "@/lib/site";
+import { StructuredData } from "@/components/seo/structured-data";
+import { webpageSchema } from "@/lib/schema";
 
 export default async function HomePage() {
   const country = await getVisitorCountry();
@@ -27,14 +29,20 @@ export default async function HomePage() {
     contentRepository.getFaqs(),
   ]);
 
+const pageSchema = webpageSchema(
+  "SoftForge",
+  "Premium website development, mobile apps, UI/UX, backend systems and AI solutions.",
+  "/"
+);
+
 const pricingPlans =
   country === "IN"
     ? pricingData.india
     : pricingData.international;
   const CtaIcon = primaryCta.icon;
-
   return (
     <>
+    <StructuredData data={pageSchema} />
       <section className="overflow-hidden border-b">
         <div className="container-soft grid min-h-[calc(100svh-4rem)] items-center gap-10 py-14 lg:grid-cols-[0.9fr_1.1fr] lg:py-16">
           <div>
@@ -217,21 +225,6 @@ const pricingPlans =
         </div>
       </section>
 
-      <section className="section-shell border-t">
-        <div className="container-soft grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <div>
-            <p className="eyebrow">FAQ</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-normal sm:text-4xl">
-              Questions clients ask before starting.
-            </h2>
-            <p className="mt-4 leading-7 text-muted-foreground">
-              Clear answers reduce friction and help qualified clients move toward a useful consultation.
-            </p>
-          </div>
-          <Accordion items={faqs.slice(0, 6)} />
-        </div>
-      </section>
-
       <section className="section-shell border-t bg-primary text-primary-foreground">
         <div className="container-soft flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div>
@@ -246,6 +239,21 @@ const pricingPlans =
               <ExternalLink className="size-4" />
             </Link>
           </Button>
+        </div>
+      </section>
+      
+      <section className="section-shell border-t">
+        <div className="container-soft grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <p className="eyebrow">FAQ</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-normal sm:text-4xl">
+              Questions clients ask before starting.
+            </h2>
+            <p className="mt-4 leading-7 text-muted-foreground">
+              Clear answers reduce friction and help qualified clients move toward a useful consultation.
+            </p>
+          </div>
+          <Accordion items={faqs.slice(0, 6)} />
         </div>
       </section>
     </>
