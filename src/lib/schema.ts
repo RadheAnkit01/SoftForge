@@ -28,7 +28,7 @@ export function organizationSchema() {
 
     areaServed: "Worldwide",
 
-    priceRange: "$$",
+    
 
     sameAs: [],
   };
