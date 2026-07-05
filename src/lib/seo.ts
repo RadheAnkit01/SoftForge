@@ -19,6 +19,18 @@ export function createMetadata({
   return {
     title: pageTitle,
     description,
+    applicationName: siteConfig.name,
+    authors: [
+      {
+        name: siteConfig.name,
+      },
+    ],
+    
+    creator: siteConfig.name,
+    
+    publisher: siteConfig.name,
+    
+    category: "Technology",
     alternates: { canonical: url },
     openGraph: {
       title: pageTitle,
@@ -27,10 +39,10 @@ export function createMetadata({
       siteName: siteConfig.name,
       images: [
         {
-          url: absoluteUrl("/images/softforge-hero.png"),
+          url: absoluteUrl("/images/og-image.png"),
           width: 1200,
-          height: 675,
-          alt: "SoftForge premium software interface hero visual",
+          height: 630,
+          alt: "SoftForge - Premium Software Development Agency",
         },
       ],
       locale: "en_US",
@@ -40,7 +52,7 @@ export function createMetadata({
       card: "summary_large_image",
       title: pageTitle,
       description,
-      images: [absoluteUrl("/images/softforge-hero.png")],
+      images: [absoluteUrl("/images/og-image.png")],
     },
   };
 }

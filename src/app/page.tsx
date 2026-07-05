@@ -84,7 +84,7 @@ const pricingPlans =
               className="aspect-[16/10] rounded-lg border object-cover shadow-soft"
               height={900}
               priority
-              src="/images/softforge-hero.png"
+              src="/images/og-image.png"
               width={1440}
             />
           </div>

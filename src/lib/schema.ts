@@ -11,7 +11,7 @@ export function organizationSchema() {
 
     logo: `${siteConfig.url}/logo.png`,
 
-    image: `${siteConfig.url}/images/softforge-hero.png`,
+    image: `${siteConfig.url}/images/og-image.png`,
 
     description: siteConfig.description,
 
